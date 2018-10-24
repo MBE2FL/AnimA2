@@ -38,60 +38,23 @@ Game::~Game(void)
  */
 void Game::initializeGame()
 {
-	/* this is a sprite without any animations, it is just an image */
-	testSprite = new Sprite("images/HaggarSNEStransp.gif");
-	testSprite->setNumberOfAnimations(1);
-	testSprite->setSpriteFrameSize(63,99);
-	testSprite->addSpriteAnimFrame(0,0,0);
-	testSprite->setPosition(200,200);
-	testSprite->setCenter(30,40); // center of the sprites origin for rotation
-	testSprite->setLayerID(3);
+	///* this is a sprite without any animations, it is just an image */
+	//testSprite = new Sprite("images/HaggarSNEStransp.gif");
+	//testSprite->setNumberOfAnimations(1);
+	//testSprite->setSpriteFrameSize(63,99);
+	//testSprite->addSpriteAnimFrame(0,0,0);
+	//testSprite->setPosition(200,200);
+	//testSprite->setCenter(30,40); // center of the sprites origin for rotation
+	//testSprite->setLayerID(3);
 
-	/* add it to our list so we can draw it */
-	this->addSpriteToDrawList(testSprite);
+	///* add it to our list so we can draw it */
+	//this->addSpriteToDrawList(testSprite);
 
-	/* how to add animations for sprite frames individually */
-	animatedSprite = new Sprite("images/dkong2.png");
-	animatedSprite->setNumberOfAnimations(2);
-	animatedSprite->setSpriteFrameSize(40,80);
-	animatedSprite->setPosition(300,200);
-	animatedSprite->setLayerID(2);
-	animatedSprite->addSpriteAnimFrame(0, 0,0);
-	animatedSprite->addSpriteAnimFrame(0, 40,0);
-	animatedSprite->addSpriteAnimFrame(0, 80,0);
-	animatedSprite->addSpriteAnimFrame(0, 120,0);
-	animatedSprite->addSpriteAnimFrame(0, 160,0);
-	animatedSprite->addSpriteAnimFrame(0, 200,0);
-	animatedSprite->addSpriteAnimFrame(0, 240,0);
-
-	/* this is how to add an entire row given the starting pixel location, spacing offset on X,Y and the number of frames to add */
-	animatedSprite->addSpriteAnimRow(1, 0,0, 40, 0, 7);
-
-	/* set the current animation to be a particular animation like this */
-	animatedSprite->setCurrentAnimation(1);
-
-	this->addSpriteToDrawList(animatedSprite);
-
-	/* now let's create a sprite that has multiple rows in the sheet */
-	/* here, I'm assuming they are all equally spaced on X, and Y */
-	animatedSprite2 = new Sprite("images/sprite_sheet_full.gif");
-	int numRows = 8;
-	animatedSprite2->setNumberOfAnimations(numRows);
-	animatedSprite2->setSpriteFrameSize(160,160);
-	animatedSprite2->setPosition(400,200);
-	animatedSprite2->setLayerID(2);
-
-	/* set up the pixel xy locations of each row */
-	for(int i=0;i<numRows;i++)
-	{
-		float step = 160*i;
-		animatedSprite2->addSpriteAnimRow(i, 0,step, 160,0, 8);
-	}
-	animatedSprite2->setCurrentAnimation(2);
-	this->addSpriteToDrawList(animatedSprite2);
+	vec3 centre = vec3(512, stateInfo.windowHeight / 2, 0.0f);
+	testSystem = new ParticleSystem(centre, 10, spriteListToDraw);
 
 	/* load the background */
-	bg = new HorizontalScrollingBackground("images/map2.gif",stateInfo.windowWidth,stateInfo.windowHeight);
+	bg = new HorizontalScrollingBackground("images/background.png",stateInfo.windowWidth,stateInfo.windowHeight);
 	this->addSpriteToDrawList(bg);
 	bg->setLayerID(0);
 }
@@ -104,7 +67,8 @@ void Game::draw()
 {
 	/* pre-draw - setup the rendering */
 	PreDraw();
-
+	
+	//testSystem->draw();
 	/* draw - actually render to the screen */
 	DrawGame();
 	
@@ -200,30 +164,30 @@ void Game::drawSprites()
    the drawing primitives capabilities */
 void Game::drawTestPrimitives()
 {
-	/* draw line */
-	setLineWidth(5.f);
-	setColor(1,0,0);
-	drawLine(100,100,200,200);
-	setLineWidth(1.f);
+	///* draw line */
+	//setLineWidth(5.f);
+	//setColor(1,0,0);
+	//drawLine(100,100,200,200);
+	//setLineWidth(1.f);
 
-	/* draw rectangle */
-	setColor(1,1,0);
-	drawRectangle(true, 200,200,50,50,45.f);
+	///* draw rectangle */
+	//setColor(1,1,0);
+	//drawRectangle(true, 200,200,50,50,45.f);
 
-	/* draw circle */
-	setLineWidth(5.f);
-	setColor(0,1,1);
-	drawCircle(20, 50, 200,200);
-	drawFilledCircle(20,50,500,200);
-	setLineWidth(1.f);
+	///* draw circle */
+	//setLineWidth(5.f);
+	//setColor(0,1,1);
+	//drawCircle(20, 50, 200,200);
+	//drawFilledCircle(20,50,500,200);
+	//setLineWidth(1.f);
 
-	/* draw triangle */
-	setColor(0.5,0,0.5);
-	drawTriangle(true, 100,100,200,200,300,100);
+	///* draw triangle */
+	//setColor(0.5,0,0.5);
+	//drawTriangle(true, 100,100,200,200,300,100);
 
-	/* draw text */
-	setColor(1,1,1);
-	drawText("HELLO WORLD",200,200);
+	///* draw text */
+	//setColor(1,1,1);
+	//drawText("HELLO WORLD",200,200);
 }
 
 /* update()
@@ -242,10 +206,12 @@ void Game::update()
 
 	/* you should probably update all of the sprites in a list just like the drawing */
 	/* maybe two lists, one for physics updates and another for sprite animation frame update */
-	testSprite->update();
-	animatedSprite->nextFrame();
-	animatedSprite2->nextFrame();
-	bg->update();
+	//testSprite->update();
+	//animatedSprite->nextFrame();
+	//animatedSprite2->nextFrame();
+	//bg->update();
+
+	testSystem->update(updateTimer->getElapsedTimeSeconds());
 }
 
 /* 
@@ -317,7 +283,6 @@ void Game::mouseClicked(int button, int state, int x, int y)
 		switch(button)
 		{
 		case GLUT_LEFT_BUTTON:
-			animatedSprite2->setPosition(input.clickX,input.clickY);
 			break;
 		case GLUT_RIGHT_BUTTON:
 		
@@ -351,7 +316,6 @@ void Game::mouseMoved(int x, int y)
 	{
 		if(input.button == GLUT_LEFT_BUTTON)
 		{
-			animatedSprite2->setPosition(input.currentX,input.currentY);
 		}
 	}
 }

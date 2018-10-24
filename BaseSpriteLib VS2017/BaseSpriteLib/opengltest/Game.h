@@ -17,6 +17,8 @@
 #include <algorithm>
 #include <cmath>
 
+#include "ParticleSystem.h"
+
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
@@ -138,11 +140,6 @@ public:
 	/* game state info */
 	GameStateInfo stateInfo;
 
-	/* individual sprites to manipulate by name */
-	Sprite *testSprite;
-	Sprite *animatedSprite;
-	Sprite *animatedSprite2;
-
 	// the background scroller
 	HorizontalScrollingBackground *bg;
 
@@ -160,4 +157,7 @@ public:
 	/* timer's for rendering and animation/physics update */
 	Timer *renderingTimer;
 	Timer *updateTimer; // for physics/collisions etc.
+
+
+	ParticleSystem* testSystem;
 };

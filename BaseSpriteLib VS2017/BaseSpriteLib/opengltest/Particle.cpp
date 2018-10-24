@@ -4,6 +4,12 @@ Particle::Particle()
 {
 }
 
+Particle::Particle(const vec3 & pos, Sprite * sprite)
+{
+	_pos = pos;
+	_sprite = sprite;
+}
+
 Particle::~Particle()
 {
 }

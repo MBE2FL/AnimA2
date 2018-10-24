@@ -7,6 +7,7 @@ class Particle
 {
 public:
 	Particle();
+	Particle(const vec3& pos, Sprite* sprite);
 	~Particle();
 	void update(float deltaTime);
 	void applyForce(const vec3& force);

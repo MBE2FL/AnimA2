@@ -16,6 +16,5 @@ public:
 	vec3 operator+=(const vec3& rhs);
 	vec3 operator/(const float divisor) const;
 
-private:
 	float _x, _y, _z;
 };
