@@ -13,14 +13,15 @@ public:
 	void applyForce(const vec3& force);
 	void draw();
 	void reset();
+	void setTarget(const vec3& target);
 
 private:
 	vec3 _pos;
 	vec3 _vel;
-	float accScale;
+	float _accScale;
 	vec3 _force;
-	vec3 _size;
-	float _mass;
+	//vec3 _size;
+	//float _mass;
 	bool _isAlive;
 	float _lifeTime;
 	Sprite* _sprite;

@@ -22,6 +22,7 @@ ParticleSystem::ParticleSystem(const vec3 & pointOfEmission, int totalParticles,
 		//drawList.push_back(sprite);
 
 		Particle* particle = new Particle(_pointOfEmission, sprite);
+ 		particle->setTarget(_pointOfEmission);
 		_particles.push_back(particle);
 	}
 }
@@ -38,7 +39,7 @@ ParticleSystem::~ParticleSystem()
 
 void ParticleSystem::update(float deltaTime)
 {
-	//draw();
+	updateParticles(deltaTime);
 }
 
 void ParticleSystem::draw()
@@ -52,4 +53,22 @@ void ParticleSystem::draw()
 
 void ParticleSystem::resetSystem()
 {
+}
+
+void ParticleSystem::updateParticles(float deltaTime)
+{
+	vector<Particle*>::iterator it;
+	for (it = _particles.begin(); it != _particles.end(); it++)
+	{
+		(*it)->update(deltaTime);
+	}
+}
+
+void ParticleSystem::setTarget(const vec3 & target)
+{
+	vector<Particle*>::iterator it;
+	for (it = _particles.begin(); it != _particles.end(); it++)
+	{
+		(*it)->setTarget(target);
+	}
 }

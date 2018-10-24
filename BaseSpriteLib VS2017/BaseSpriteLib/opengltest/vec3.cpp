@@ -11,9 +11,19 @@ vec3::~vec3()
 void vec3::normalize()
 {
 	float length = getLength();
-	_x = _x / length;
-	_y = _y / length;
-	_z = _z / length;
+
+	if (length == 0.0f)
+	{
+		_x = 0.0f;
+		_y = 0.0f;
+		_z = 0.0f;
+	}
+	else
+	{
+		_x = _x / length;
+		_y = _y / length;
+		_z = _z / length;
+	}
 }
 
 float vec3::getLength()

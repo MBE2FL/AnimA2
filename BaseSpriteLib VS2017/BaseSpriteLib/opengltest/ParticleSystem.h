@@ -15,6 +15,8 @@ public:
 	void update(float deltaTime);
 	void draw();
 	void resetSystem();
+	void updateParticles(float deltaTime);
+	void setTarget(const vec3& target);
 
 
 private:

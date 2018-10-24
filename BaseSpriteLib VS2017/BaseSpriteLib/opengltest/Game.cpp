@@ -51,7 +51,7 @@ void Game::initializeGame()
 	//this->addSpriteToDrawList(testSprite);
 
 	vec3 centre = vec3(512, stateInfo.windowHeight / 2, 0.0f);
-	testSystem = new ParticleSystem(centre, 10, spriteListToDraw);
+	testSystem = new ParticleSystem(centre, 100, spriteListToDraw);
 
 	/* load the background */
 	bg = new HorizontalScrollingBackground("images/background.png",stateInfo.windowWidth,stateInfo.windowHeight);
@@ -285,6 +285,7 @@ void Game::mouseClicked(int button, int state, int x, int y)
 		switch(button)
 		{
 		case GLUT_LEFT_BUTTON:
+			testSystem->setTarget(vec3(input.clickX, input.clickY, 0.0f));
 			break;
 		case GLUT_RIGHT_BUTTON:
 		
