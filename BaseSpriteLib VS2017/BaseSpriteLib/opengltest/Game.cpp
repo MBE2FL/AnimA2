@@ -158,6 +158,8 @@ void Game::drawSprites()
 		s->draw();
 	}
 
+	testSystem->draw();
+
 }
 
 /* for testing purposes to show you how to use

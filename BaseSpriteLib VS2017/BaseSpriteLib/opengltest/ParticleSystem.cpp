@@ -19,6 +19,7 @@ ParticleSystem::ParticleSystem(const vec3 & pointOfEmission, int totalParticles,
 		sprite->setPosition(_pointOfEmission._x, _pointOfEmission._y);
 		sprite->setCenter(8, 8); // center of the sprites origin for rotation
 		sprite->setLayerID(3);
+		//drawList.push_back(sprite);
 
 		Particle* particle = new Particle(_pointOfEmission, sprite);
 		_particles.push_back(particle);
@@ -37,7 +38,7 @@ ParticleSystem::~ParticleSystem()
 
 void ParticleSystem::update(float deltaTime)
 {
-	draw();
+	//draw();
 }
 
 void ParticleSystem::draw()
